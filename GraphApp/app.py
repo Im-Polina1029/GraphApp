@@ -1,39 +1,53 @@
-"""
-This script runs the application using a development server.
-"""
+from bottle import route, run, request, template, static_file
 
-import bottle
-import os
-import sys
+# Маршрут для статических файлов (CSS)
+@route('/static/<filename:path>')
+def send_static(filename):
+    return static_file(filename, root='./static')
 
-# routes contains the HTTP handlers for our server and must be imported.
-import routes
+# Главная страница (ввод данных + выбор алгоритма)
+@route('/')
+@route('/index')
+def index():
+    return template('index')
 
-if '--debug' in sys.argv[1:] or 'SERVER_DEBUG' in os.environ:
-    # Debug mode will enable more verbose output in the console window.
-    # It must be set at the beginning of the script.
-    bottle.debug(True)
+# Обучающие страницы
+@route('/about-bfs')
+def about_bfs():
+    return template('about_bfs')
 
-def wsgi_app():
-    """Returns the application to make available through wfastcgi. This is used
-    when the site is published to Microsoft Azure."""
-    return bottle.default_app()
+@route('/about-dfs')
+def about_dfs():
+    return template('about_dfs')
 
+@route('/about-coloring')
+def about_coloring():
+    return template('about_coloring')
+
+# Страница об авторах
+@route('/authors')
+def authors():
+    return template('authors')
+
+# Заглушка для обработки формы (пока просто выводит, что алгоритм запущен)
+@route('/compute', method='POST')
+def compute():
+    algorithm = request.forms.get('algorithm')
+    n = request.forms.get('n')
+    matrix = request.forms.get('matrix')
+    start = request.forms.get('start')
+    
+    # Здесь позже будет вызов нужного алгоритма
+    return f"""
+    <h1>Результат (заглушка)</h1>
+    <p><strong>Выбранный алгоритм:</strong> {algorithm}</p>
+    <p><strong>Количество вершин:</strong> {n}</p>
+    <p><strong>Матрица смежности:</strong></p>
+    <pre>{matrix}</pre>
+    <p><strong>Стартовая вершина (для BFS/DFS):</strong> {start}</p>
+    <a href="/">Вернуться на главную</a>
+    """
+
+# Запуск сервера
 if __name__ == '__main__':
-    PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static').replace('\\', '/')
-    HOST = os.environ.get('SERVER_HOST', 'localhost')
-    try:
-        PORT = int(os.environ.get('SERVER_PORT', '5555'))
-    except ValueError:
-        PORT = 5555
-
-    @bottle.route('/static/<filepath:path>')
-    def server_static(filepath):
-        """Handler for static files, used with the development server.
-        When running under a production server such as IIS or Apache,
-        the server should be configured to serve the static files."""
-        return bottle.static_file(filepath, root=STATIC_ROOT)
-
-    # Starts a local test server.
-    bottle.run(server='wsgiref', host=HOST, port=PORT)
+    run(host='localhost', port=8080, debug=True, reloader=True)
