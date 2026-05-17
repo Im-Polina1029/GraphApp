@@ -1,9 +1,9 @@
 from bottle import route, run, request, template, static_file
 
 # Маршрут для статических файлов (CSS)
-@route('/static/<filename:path>')
-def send_static(filename):
-    return static_file(filename, root='./static')
+@route('/static/<filepath:path>')
+def send_static(filepath):
+    return static_file(filepath, root='./static')
 
 # Главная страница (ввод данных + выбор алгоритма)
 @route('/')
