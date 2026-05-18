@@ -76,6 +76,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\about_dfs.tpl" />
+    <Content Include="views\error.tpl">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\index.tpl" />
     <Content Include="views\about_coloring.tpl" />
     <Content Include="views\result.tpl">
