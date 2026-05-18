@@ -1,9 +1,16 @@
-/* Îáùèå ñáğîñû */
+/* =========================================
+   ÑÁĞÎÑ ÑÒÈËÅÉ
+========================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+/* =========================================
+   ÎÑÍÎÂÍÛÅ ÑÒÈËÈ
+========================================= */
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,19 +19,22 @@ body {
     color: #333;
 }
 
-/* Ñòèëüíîå ìåíş */
+/* =========================================
+   ÍÀÂÈÃÀÖÈß
+========================================= */
+
 nav {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     gap: 2rem;
     flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
     nav a {
@@ -34,7 +44,6 @@ nav {
         padding: 0.5rem 1rem;
         border-radius: 8px;
         transition: all 0.3s ease;
-        font-size: 1rem;
     }
 
         nav a:hover {
@@ -43,14 +52,17 @@ nav {
             transform: translateY(-2px);
         }
 
-/* Îñíîâíîé êîíòåíò */
+/* =========================================
+   ÎÑÍÎÂÍÎÉ ÊÎÍÒÅÍÒ
+========================================= */
+
 main {
     max-width: 900px;
     margin: 3rem auto;
     padding: 2rem;
     background: white;
     border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease;
 }
 
@@ -65,6 +77,10 @@ main {
         transform: translateY(0);
     }
 }
+
+/* =========================================
+   ÇÀÃÎËÎÂÊÈ
+========================================= */
 
 h1 {
     font-size: 2.5rem;
@@ -83,7 +99,10 @@ h1 {
     font-size: 1rem;
 }
 
-/* Ôîğìà */
+/* =========================================
+   ÔÎĞÌÛ
+========================================= */
+
 form {
     display: flex;
     flex-direction: column;
@@ -93,20 +112,23 @@ form {
 label {
     font-weight: 600;
     color: #333;
-    margin-bottom: -0.5rem;
     font-size: 0.9rem;
 }
 
-select, input, textarea {
+select,
+input,
+textarea {
     padding: 0.75rem;
     border: 2px solid #e0e0e0;
     border-radius: 12px;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
     font-family: inherit;
+    transition: all 0.3s ease;
 }
 
-    select:focus, input:focus, textarea:focus {
+    select:focus,
+    input:focus,
+    textarea:focus {
         outline: none;
         border-color: #667eea;
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -114,9 +136,13 @@ select, input, textarea {
 
 textarea {
     resize: vertical;
-    font-family: 'Courier New', monospace;
     background: #f8f9fa;
+    font-family: 'Courier New', monospace;
 }
+
+/* =========================================
+   ÊÍÎÏÊÈ
+========================================= */
 
 button {
     background: linear-gradient(135deg, #667eea, #764ba2);
@@ -128,7 +154,6 @@ button {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 0.5rem;
 }
 
     button:hover {
@@ -136,7 +161,10 @@ button {
         box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
     }
 
-/* Êàğòî÷êè äëÿ îáó÷àşùèõ ñòğàíèö */
+/* =========================================
+   ÊÀĞÒÎ×ÊÈ
+========================================= */
+
 .card {
     background: #f8f9fa;
     border-radius: 16px;
@@ -155,50 +183,132 @@ button {
         margin-top: 0.5rem;
     }
 
+/* =========================================
+   FOOTER
+========================================= */
+
 footer {
     text-align: center;
     margin-top: 3rem;
-    color: rgba(255,255,255,0.7);
-    font-size: 0.85rem;
     padding-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
 }
 
-/* Êíîïêà çàãğóçêè ïğèìåğà */
+/* =========================================
+   ÄÎÏÎËÍÈÒÅËÜÍÛÅ ÊÍÎÏÊÈ
+========================================= */
+
 .example-btn {
     background: white !important;
     color: #667eea !important;
     border: 2px solid #667eea !important;
-    margin-top: 0.5rem;
 }
 
     .example-btn:hover {
         background: #667eea !important;
         color: white !important;
-        transform: translateY(-2px);
     }
 
-small {
-    color: #666;
+/* =========================================
+   ĞÅÇÓËÜÒÀÒÛ
+========================================= */
+
+.result-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.graph-visualization {
+    text-align: center;
+}
+
+    .graph-visualization canvas {
+        max-width: 100%;
+        height: auto;
+        background: #fafafa;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+/* =========================================
+   ÒÀÁËÈÖÀ ÌÀÒĞÈÖÛ
+========================================= */
+
+.matrix-container {
+    overflow-x: auto;
+}
+
+.matrix-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    background: white;
+}
+
+    .matrix-table td {
+        width: 45px;
+        height: 45px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-weight: 500;
+    }
+
+.matrix-cell-1 {
+    background: #3b82f6;
+    color: white;
+    font-weight: bold;
+}
+
+/* =========================================
+   ÈÍÔÎĞÌÀÖÈß
+========================================= */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.info-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #667eea;
+    margin-top: 0.5rem;
+}
+
+/* =========================================
+   ÀÄÀÏÒÈÂÍÎÑÒÜ
+========================================= */
+
+max-width: 768px {
+    main
+
+{
+    margin: 1rem;
+    padding: 1.5rem;
+}
+
+nav {
+    gap: 0.5rem;
+}
+
+    nav a {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.7rem;
+    }
+
+h1 {
+    font-size: 1.8rem;
+}
+
+.matrix-table td {
+    width: 35px;
+    height: 35px;
     font-size: 0.8rem;
 }
 
-/* Àäàïòèâíîñòü */
-@media (max-width: 768px) {
-    main {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-
-    nav {
-        gap: 0.5rem;
-    }
-
-        nav a {
-            font-size: 0.85rem;
-            padding: 0.3rem 0.7rem;
-        }
-
-    h1 {
-        font-size: 1.8rem;
-    }
+.info-grid {
+    grid-template-columns: 1fr;
+}
 }
