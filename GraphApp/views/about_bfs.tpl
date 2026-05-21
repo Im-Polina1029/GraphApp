@@ -1,180 +1,7 @@
-% rebase('base')
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Теория BFS | Обход в ширину | GraphApp</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            color: #1e2a3e;
-            padding: 2rem;
-            line-height: 1.7;
-        }
+<!-- 
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
-            padding: 2rem;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            border-bottom: 4px solid #3498db;
-            display: inline-block;
-            padding-bottom: 0.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .subtitle {
-            color: #4a627a;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        h2 {
-            font-size: 1.6rem;
-            margin: 1.8rem 0 1rem 0;
-            color: #2c3e50;
-            border-left: 4px solid #3498db;
-            padding-left: 0.8rem;
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            margin: 1.2rem 0 0.6rem;
-            color: #3498db;
-        }
-
-        p {
-            margin-bottom: 1rem;
-        }
-
-        .definition {
-            background: #eef2fa;
-            padding: 1rem;
-            border-radius: 0.8rem;
-            border-left: 5px solid #3498db;
-            margin: 1.5rem 0;
-        }
-
-        .note {
-            background: #fef9e3;
-            padding: 1rem;
-            border-radius: 0.8rem;
-            border-left: 5px solid #f1c40f;
-            margin: 1.5rem 0;
-        }
-
-        code {
-            background: #f0f0f0;
-            padding: 0.2rem 0.4rem;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-
-        pre {
-            background: #1e2a3a;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 0.8rem;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-        }
-
-        ul, ol {
-            margin: 0.8rem 0 1rem 1.8rem;
-        }
-
-        li {
-            margin: 0.5rem 0;
-        }
-
-        .table-wrap {
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #f9fafc;
-        }
-        th, td {
-            border: 1px solid #cbd5e0;
-            padding: 0.5rem;
-            text-align: center;
-        }
-        th {
-            background: #e2e8f0;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.6rem 1.2rem;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 2rem;
-            transition: background 0.2s;
-        }
-
-        .back-link:hover {
-            background: #2980b9;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #5a6e7c;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 1.5rem;
-        }
-
-        @media (max-width: 700px) {
-            body { padding: 1rem; }
-            .container { padding: 1.2rem; }
-            h1 { font-size: 1.8rem; }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>📘 Поиск в ширину (BFS)</h1>
-    <div class="subtitle">Breadth‑First Search — алгоритм обхода графа «по слоям»</div>
-
-    <div class="definition">
-        <strong>📌 Определение из теории графов:</strong> <em>Обход графа</em> — это систематическое перечисление его вершин (и/или рёбер).  
-        <strong>Поиск в ширину (BFS)</strong> использует в качестве вспомогательной структуры данных <strong>очередь (FIFO — First In, First Out)</strong>.  
-        Вершины обрабатываются в порядке их удалённости от стартовой: сначала все соседи на расстоянии 1, затем на расстоянии 2 и т.д.
-    </div>
-
-    <h2>1. Базовые понятия</h2>
-    <ul>
-        <li><strong>Граф</strong> \( G(V,E) \) — совокупность непустого множества вершин \( V \) и множества рёбер \( E \) — двухэлементных подмножеств \( V \).</li>
-        <li><strong>Неориентированный граф</strong> — рёбра не имеют направления.</li>
-        <li><strong>Маршрут</strong> — последовательность вершин \( v_0, v_1, …, v_k \), где каждые две соседние соединены ребром.</li>
-        <li><strong>Расстояние</strong> \( d(u,v) \) — длина кратчайшей цепи между вершинами.</li>
-        <li><strong>Ярус</strong> \( D(v,n) \) — множество вершин, находящихся на расстоянии \( n \) от вершины \( v \). BFS естественным образом разбивает граф на ярусы.</li>
-        <li><strong>Связный граф</strong> — для любых двух вершин существует маршрут.</li>
-    </ul>
-
-    <h2>2. Алгоритм BFS</h2>
+    <h2>2. Алгоритм BFS (из раздела 1.5 документа)</h2>
     <p><strong>Вход:</strong> граф \( G(V,E) \), представленный списками смежности \( \Gamma \), и начальная вершина \( v \).<br>
     <strong>Выход:</strong> последовательность вершин в порядке обхода (и/или остовное дерево BFS).</p>
 
@@ -208,13 +35,6 @@
         <li>Определяет компоненты связности графа.</li>
         <li>Используется в волновых алгоритмах, поиске выхода из лабиринта, в социальных сетях (степень удаления).</li>
         <li><strong>В проекте GraphApp</strong> BFS реализован для построения остовного дерева по заданной матрице смежности.</li>
-    </ul>
-
-    <h2>4. Сложность и реализация</h2>
-    <ul>
-        <li><strong>Время работы:</strong> \( O(V + E) \) при использовании списков смежности.</li>
-        <li><strong>Дополнительная память:</strong> \( O(V) \) для очереди и массива отметок.</li>
-        <li>Граф может быть задан <strong>матрицей смежности</strong> (квадратная булева матрица \( A \), где \( A[i][j]=1 \), если вершины смежны) или <strong>списками смежности</strong> (рекомендуется для разреженных графов).</li>
     </ul>
 
     <h2>5. Пример работы BFS</h2>
@@ -268,4 +88,56 @@
     <footer>GraphApp — учебный проект по теории графов, 2026 | BFS реализован Михаилом Кукушкиным</footer>
 </div>
 </body>
-</html>
+</html> -->
+
+% rebase('base')
+
+<h1>🧠 BFS — обход в ширину</h1>
+<div class="subtitle">Breadth‑First Search (поиск в ширину)</div>
+
+<div class="card">
+    <h3>📌 Что это?</h3>
+    <p>DFS — это алгоритм обхода графа "по слоям", который использует систематическое перечисление его вершин (и/или рёбер).  
+        Он использует в качестве вспомогательной структуры данных очередь (FIFO — First In, First Out).  
+        Вершины обрабатываются в порядке их удалённости от стартовой: сначала все соседи на расстоянии 1, затем на расстоянии 2 и т.д..</p>
+</div>
+
+<div class="card">
+    <h3>📖 Базовые понятия</h3>
+    <ul>
+        <li><strong>Граф</strong> \( G(V,E) \) — совокупность непустого множества вершин \( V \) и множества рёбер \( E \) — двухэлементных подмножеств \( V \).</li>
+        <li><strong>Неориентированный граф</strong> — рёбра не имеют направления.</li>
+        <li><strong>Маршрут</strong> — последовательность вершин \( v_0, v_1, …, v_k \), где каждые две соседние соединены ребром.</li>
+        <li><strong>Расстояние</strong> \( d(u,v) \) — длина кратчайшей цепи между вершинами.</li>
+        <li><strong>Ярус</strong> \( D(v,n) \) — множество вершин, находящихся на расстоянии \( n \) от вершины \( v \). BFS естественным образом разбивает граф на ярусы.</li>
+        <li><strong>Связный граф</strong> — для любых двух вершин существует маршрут.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>⚙️ Как работает BFS?</h3>
+    <ul>
+        <li>1. Алгоритм начинает работу со стартовой вершины, сразу отмечая её как пройденную и помещая в очередь</li>
+        <li>2. Из очереди извлекается первая вершина (та, которая попала туда раньше всех), и алгоритм смотрит на всех её соседей</li>
+        <li>3. Все непройденные соседние вершины отмечаются как пройденные, добавляются в конец очереди, а рёбра к ним — в остовное дерево</li>
+        <li>4. Алгоритм переходит к следующей вершине в очереди и повторяет шаги 2–3 до тех пор, пока очередь не опустеет</li>
+        <li>5. Когда очередь пуста — все достижимые вершины обработаны, остовное дерево построено</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🌳 Построение остовного дерева</h3>
+    <p>В остовное дерево включаются только те рёбра, по которым BFS <strong>впервые</strong> обнаруживает новую вершину при обходе «по слоям», что гарантирует связность всех вершин и отсутствие циклов.</p>
+</div>
+
+<div class="card">
+    <h3>📈 Применение</h3>
+    <ul>
+        <li>Построение остовного дерева</li>
+        <li>Решение головоломок (лабиринты, судоку)</li>
+    </ul>
+</div>
+
+
+
+<a href="/" style="display: inline-block; margin-top: 1rem; color: #667eea; text-decoration: none;">← Вернуться на главную</a>

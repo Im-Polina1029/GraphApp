@@ -144,22 +144,87 @@ textarea {
    ÊÍÎÏÊÈ
 ========================================= */
 
-button {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+/* ========== ÊÍÎÏÊÈ ========== */
+
+/* Êîíòåéíåğ äëÿ ãğóïïû êíîïîê */
+.button-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Îñíîâíàÿ êíîïêà (Íà ãëàâíóş) */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+    padding: 12px 28px;
     border: none;
-    padding: 0.875rem;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     transition: all 0.3s ease;
+    font-family: inherit;
 }
 
-    button:hover {
+    .btn-primary:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
     }
+
+/* Êíîïêà ñîõğàíåíèÿ (çåë¸íàÿ) */
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    }
+
+/* Êíîïêà-ññûëêà (êàê ïğèìåğ) */
+.btn-example {
+    background: white;
+    color: #667eea;
+    padding: 12px 28px;
+    border: 2px solid #667eea;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+    .btn-example:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+    }
+
 
 /* =========================================
    ÊÀĞÒÎ×ÊÈ
@@ -312,3 +377,41 @@ h1 {
     grid-template-columns: 1fr;
 }
 }
+
+/* ===== ÊÍÎÏÊÈ ÍÀ ÑÒĞÀÍÈÖÅ ĞÅÇÓËÜÒÀÒÀ (ĞÀÁÎÒÀÅÒ ÃÀĞÀÍÒÈĞÎÂÀÍÍÎ) ===== */
+.button-group {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
+}
+
+.btn-primary, .btn-success {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    padding: 12px 28px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    min-width: 180px !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+    .btn-primary:hover, .btn-success:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
+    }

@@ -26,25 +26,6 @@
     <button type="submit">Запустить алгоритм</button>
 </form>
 
-<div style="margin-top: 2rem; padding: 1rem; background: #f0f4ff; border-radius: 16px; text-align: center;">
-    <p style="color: #667eea; font-size: 0.9rem;">
-        💡 <strong>Совет:</strong> Вы можете загрузить пример, нажав на кнопку ниже
-    </p>
-    <button class="example-btn" onclick="loadExample()">
-        📁 Загрузить пример графа
-    </button>
-    <div style="margin-top: 2rem; padding: 1rem; background: #f0f4ff; border-radius: 16px; text-align: center;">
-    <p style="color: #667eea; font-size: 0.9rem;">
-        📁 <strong>Загрузите файл с данными:</strong>
-    </p>
-    <form action="/upload" method="post" enctype="multipart/form-data" style="display: inline;">
-        <input type="file" name="data_file" accept=".json,.txt" required>
-        <button type="submit" class="example-btn">
-            📤 Загрузить из файла
-        </button>
-    </form>
-</div>
-
 </div>
 
 <script>
