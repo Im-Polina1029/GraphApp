@@ -148,7 +148,7 @@ def compute():
 
    
         # Проверка связности графа
-   32
+   
         if not all(visited[1:]):
             return template(
                 'error',
