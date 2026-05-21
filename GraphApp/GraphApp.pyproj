@@ -81,6 +81,9 @@
     </Content>
     <Content Include="views\index.tpl" />
     <Content Include="views\about_coloring.tpl" />
+    <Content Include="views\index_with_data.tpl">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\result.tpl">
       <SubType>Code</SubType>
     </Content>

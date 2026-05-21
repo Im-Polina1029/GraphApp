@@ -167,7 +167,6 @@
         <div style="background: #f8fafc; border-radius: 1rem; padding: 1.5rem; margin-top: 1rem;">
             <h3 style="margin-top: 0;">📌 О проекте GraphApp</h3>
             <p>Учебный проект по дисциплине «Элементы теории графов». Приложение позволяет решать три классические задачи: построение остовного дерева (BFS/DFS) и минимальная раскраска вершин.</p>
-            <p>Стек технологий: <strong>Python + Bottle, HTML5/CSS3, JavaScript</strong>. Логирование операций сохраняется в <code>logs.txt</code>.</p>
         </div>
 
         <a href="/" class="back-link">← На главную</a>
