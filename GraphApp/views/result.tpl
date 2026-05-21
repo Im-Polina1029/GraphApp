@@ -21,7 +21,7 @@
 
 <main>
 
-    <h1>📊 Результат</h1>
+    <h1>Результат</h1>
 
 <div class="subtitle">
     Алгоритм: <strong>{{algorithm_name}}</strong>
@@ -76,9 +76,9 @@
     </div>
 
     <!-- Кнопка возврата -->
-    <div style="display:flex; gap:1rem; justify-content:center; margin-top:2rem;">
-        <a href="/" class="example-btn" style="text-decoration:none; padding:12px 20px;">🏠 На главную</a>
-    </div>
+    <button >
+        <a href="/" ">На главную</a>
+    </button>
 
 </div>
 </body>

@@ -26,14 +26,7 @@
     <button type="submit">Запустить алгоритм</button>
 </form>
 
-<div style="margin-top: 2rem; padding: 1rem; background: #f0f4ff; border-radius: 16px; text-align: center;">
-    <p style="color: #667eea; font-size: 0.9rem;">
-        💡 <strong>Совет:</strong> Вы можете загрузить пример, нажав на кнопку ниже
-    </p>
-    <button class="example-btn" onclick="loadExample()">
-        📁 Загрузить пример графа
-    </button>
-</div>
+
 
 <script>
     function loadExample() {
