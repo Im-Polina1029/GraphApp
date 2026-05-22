@@ -148,7 +148,7 @@ def compute():
 
    
         # Проверка связности графа
-   32
+   
         if not all(visited[1:]):
             return template(
                 'error',
@@ -244,7 +244,38 @@ def upload_file():
     except Exception as e:
         return template('error', message=f'Ошибка при загрузке файла: {str(e)}')
 
+from collections import deque
 
+def bfs_tree(matrix, start):
+    """
+    Выполняет BFS на графе, заданном матрицей смежности.
+    :param matrix: список списков (n x n) - матрица смежности
+    :param start: начальная вершина (1..n)
+    :return: (traversal_order, tree_edges)
+        traversal_order: список вершин в порядке обхода BFS
+        tree_edges: список рёбер остовного дерева как кортежей (u, v)
+    """
+    n = len(matrix)
+    visited = [False] * (n + 1)
+    parent = [0] * (n + 1)
+    tree_edges = []
+    traversal_order = []
+
+    queue = deque([start])
+    visited[start] = True
+
+    while queue:
+        u = queue.popleft()
+        traversal_order.append(u)
+
+        for v in range(1, n + 1):
+            if matrix[u - 1][v - 1] == 1 and not visited[v]:
+                visited[v] = True
+                parent[v] = u
+                tree_edges.append((u, v))
+                queue.append(v)
+
+    return traversal_order, tree_edges
 # Запуск сервера
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True, reloader=True)
