@@ -19,7 +19,8 @@
     <Name>GraphApp</Name>
     <RootNamespace>GraphApp</RootNamespace>
     <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
-    <InterpreterId>MSBuild|env2|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env5|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,9 +54,13 @@
     <Folder Include="static\style\" />
     <Folder Include="static\scripts\" />
     <Folder Include="views\" />
+    <Folder Include="tests\" />
+    <Folder Include="tests\unit\" />
+    <Folder Include="tests\selenium\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
+    <Content Include="TESTING.md" />
     <Content Include="static\content\bootstrap.css" />
     <Content Include="static\content\bootstrap.min.css" />
     <Content Include="static\content\site.css" />
@@ -100,6 +105,15 @@
     <Content Include="views\result.tpl">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\result_coloring.tpl">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="pytest.ini" />
+    <Content Include="tests\__init__.py" />
+    <Content Include="tests\unit\__init__.py" />
+    <Content Include="tests\unit\test_coloring.py" />
+    <Content Include="tests\selenium\__init__.py" />
+    <Content Include="tests\selenium\test_ui_coloring.py" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env2\">
@@ -115,6 +129,15 @@
       <Id>env3213123</Id>
       <Version>3.11</Version>
       <Description>env3213123 (Python 3.11 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+    <Interpreter Include="env5\">
+      <Id>env5</Id>
+      <Version>3.9</Version>
+      <Description>env5 (Python 3.9 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>

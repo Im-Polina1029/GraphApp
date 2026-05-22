@@ -5,12 +5,12 @@
     Исследуйте графы с помощью BFS, DFS и раскраски вершин
 </div>
 
-<form action="/compute" method="post">
+<form action="/compute" method="post" id="graphForm">
     <label>Выберите алгоритм</label>
-    <select name="algorithm">
+    <select name="algorithm" id="algorithmSelect">
         <option value="bfs">BFS — обход в ширину (остовное дерево)</option>
         <option value="dfs">DFS — обход в глубину (остовное дерево)</option>
-        <option value="coloring">Раскраска вершин (жадный алгоритм)</option>
+        <option value="coloring">Раскраска вершин (жадный алгоритм + обратный поиск)</option>
     </select>
 
     <label>Количество вершин (1–20)</label>
@@ -20,13 +20,11 @@
     <textarea name="matrix" rows="5" placeholder="0 1 1 0&#10;1 0 1 1&#10;1 1 0 0&#10;0 1 0 0" required></textarea>
     <small>Вводите числа через пробел, строки разделяйте переносом</small>
 
-    <label>📍 Стартовая вершина (для BFS и DFS)</label>
-    <input type="number" name="start" min="1" placeholder="Например: 1" required>
+    <label id="startLabel">📍 Стартовая вершина (для BFS и DFS)</label>
+    <input type="number" name="start" id="startInput" min="1" placeholder="Например: 1" required>
 
-    <button type="submit">Запустить алгоритм</button>
+    <button type="submit" class="btn-primary algorithm-submit">▶ Запустить алгоритм</button>
 </form>
-
-</div>
 
 <script>
     function loadExample() {
@@ -34,4 +32,24 @@
         document.querySelector('input[name="n"]').value = "4";
         document.querySelector('input[name="start"]').value = "1";
     }
+
+    function updateStartInputState() {
+        const algorithm = document.getElementById('algorithmSelect').value;
+        const startInput = document.getElementById('startInput');
+        const startLabel = document.getElementById('startLabel');
+
+        if (algorithm === 'coloring') {
+            startInput.required = false;
+            startInput.disabled = true;
+            startInput.value = '';
+            startLabel.textContent = '📍 Стартовая вершина не требуется для раскраски';
+        } else {
+            startInput.required = true;
+            startInput.disabled = false;
+            startLabel.textContent = '📍 Стартовая вершина (для BFS и DFS)';
+        }
+    }
+
+    document.getElementById('algorithmSelect').addEventListener('change', updateStartInputState);
+    updateStartInputState();
 </script>

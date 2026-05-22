@@ -1,8 +1,7 @@
 from bottle import route, run, request, template, static_file
 import time
 import json
-import math
-from collections import deque
+import os
 
 # Импорт алгоритмов
 from algorithms.bfs import bfs_spanning_tree
@@ -13,13 +12,32 @@ from algorithms.coloring import greedy_coloring
 # ========== ВИЗУАЛИЗАЦИЯ (для app.py) ==========
 
 def get_all_edges(matrix, n):
-    """Возвращает список всех рёбер исходного графа"""
+    """Возвращает список всех рёбер исходного графа."""
     edges = []
     for i in range(n):
         for j in range(i + 1, n):
             if matrix[i][j] == 1:
                 edges.append((i + 1, j + 1))
     return edges
+
+
+def parse_matrix(matrix_str, n):
+    """Преобразует текстовую матрицу из формы в список списков."""
+    matrix = []
+    rows = matrix_str.strip().split('\n')
+    for row in rows:
+        row = row.strip()
+        if row:
+            matrix.append([int(x) for x in row.split()])
+
+    if len(matrix) != n:
+        raise ValueError(f'Количество строк ({len(matrix)}) не равно n={n}')
+
+    for index, row in enumerate(matrix, start=1):
+        if len(row) != n:
+            raise ValueError(f'Строка {index} должна содержать ровно {n} элементов')
+
+    return matrix
 
 
 # ========== МАРШРУТЫ ==========
@@ -61,23 +79,37 @@ def compute():
         algorithm = request.forms.get('algorithm')
         n = int(request.forms.get('n'))
         matrix_str = request.forms.get('matrix')
-        start = int(request.forms.get('start'))
-
-        # Парсинг матрицы
-        matrix = []
-        rows = matrix_str.strip().split('\n')
-        for row in rows:
-            row = row.strip()
-            if row:
-                matrix.append([int(x) for x in row.split()])
-
-        if len(matrix) != n:
-            return template('error', message=f'Ошибка: количество строк ({len(matrix)}) не равно n={n}')
-
-        if start < 1 or start > n:
-            return template('error', message='Ошибка: неверная стартовая вершина')
+        matrix = parse_matrix(matrix_str, n)
 
         start_time = time.time()
+
+        if algorithm == 'coloring':
+            result = greedy_coloring(matrix, n)
+            execution_time = round((time.time() - start_time) * 1000, 2)
+            vertices = list(range(1, n + 1))
+            all_edges = get_all_edges(matrix, n)
+
+            return template('result_coloring',
+                algorithm_name='Раскраска вершин: жадный алгоритм + обратный поиск',
+                n=n,
+                colors=result['colors'],
+                num_colors=result['num_colors'],
+                min_colors=result['min_colors'],
+                greedy_colors=result['greedy_colors'],
+                greedy_num_colors=result['greedy_num_colors'],
+                order=result['order'],
+                degrees=result['degrees'],
+                checks=result['checks'],
+                is_valid=result['is_valid'],
+                execution_time=execution_time,
+                matrix=matrix,
+                vertices_json=json.dumps(vertices),
+                edges_json=json.dumps(all_edges),
+                colors_json=json.dumps(result['colors']))
+
+        start = int(request.forms.get('start'))
+        if start < 1 or start > n:
+            return template('error', message='Ошибка: неверная стартовая вершина')
 
         if algorithm == 'dfs':
             result = dfs_spanning_tree(matrix, n, start)
@@ -93,15 +125,6 @@ def compute():
             tree_edges = result['tree_edges']
             visited = result['visited']
 
-        elif algorithm == 'coloring':
-            result = greedy_coloring(matrix, n)
-            return template('result_coloring',
-                algorithm_name='Раскраска вершин (жадный алгоритм)',
-                n=n,
-                colors=result['colors'],
-                num_colors=result['num_colors'],
-                matrix=matrix)
-
         else:
             return template('error', message='Неизвестный алгоритм')
 
@@ -113,8 +136,8 @@ def compute():
         # Матрица остовного дерева
         tree_matrix = [[0] * n for _ in range(n)]
         for u, v in tree_edges:
-            tree_matrix[u-1][v-1] = 1
-            tree_matrix[v-1][u-1] = 1
+            tree_matrix[u - 1][v - 1] = 1
+            tree_matrix[v - 1][u - 1] = 1
 
         vertices = list(range(1, n + 1))
         all_edges = get_all_edges(matrix, n)
@@ -168,4 +191,6 @@ def upload_file():
 # ========== ЗАПУСК ==========
 
 if __name__ == '__main__':
-    run(host='localhost', port=8080, debug=True, reloader=True)
+    host = os.environ.get('GRAPHAPP_HOST', 'localhost')
+    port = int(os.environ.get('GRAPHAPP_PORT', '8080'))
+    run(host=host, port=port, debug=True, reloader=True)
